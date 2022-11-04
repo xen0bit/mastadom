@@ -2,6 +2,7 @@ package dbtools
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 
 	_ "github.com/mattn/go-sqlite3"
@@ -52,7 +53,7 @@ func (sc *SqliteConn) InsertData(chnl chan SqliteRow) error {
 	}
 	defer stmt.Close()
 	for v := range chnl {
-		//fmt.Println(v)
+		fmt.Println(v.Id)
 		_, err = stmt.Exec(v.Id, v.Content)
 		if err != nil {
 			return err

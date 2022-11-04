@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -18,7 +17,7 @@ var (
 )
 
 func htmlContentToText(htmlContent string) string {
-	fmt.Println(htmlContent)
+	//fmt.Println(htmlContent)
 
 	tkn := html.NewTokenizer(strings.NewReader(htmlContent))
 	var textContent string

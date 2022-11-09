@@ -120,6 +120,27 @@ func main() {
 		if err := sqliteconn.InsertData(ch); err != nil {
 			log.Fatal(err)
 		}
+
+		// //Create a chain of order 2
+		// chain := gomarkov.NewChain(2)
+		// contentCh := make(chan string)
+		// // Producer
+		// go sqliteconn.GetTrainData(contentCh)
+		// // Consumer
+		// for v := range contentCh {
+		// 	chain.Add(strings.Split(v, " "))
+		// }
+		// order := chain.Order
+		// tokens := make([]string, 0)
+		// for i := 0; i < order; i++ {
+		// 	tokens = append(tokens, gomarkov.StartToken)
+		// }
+		// for tokens[len(tokens)-1] != gomarkov.EndToken {
+		// 	next, _ := chain.Generate(tokens[(len(tokens) - order):])
+		// 	tokens = append(tokens, next)
+		// }
+		// fmt.Println(strings.Join(tokens[order:len(tokens)-1], " "))
+
 		time.Sleep(60 * time.Second)
 	}
 }

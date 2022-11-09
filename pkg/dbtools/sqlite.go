@@ -62,3 +62,35 @@ func (sc *SqliteConn) InsertData(chnl chan SqliteRow) error {
 	tx.Commit()
 	return nil
 }
+
+func (sc *SqliteConn) GetTrainData(chnl chan string) error {
+	query := `
+		select content from train
+	`
+
+	rows, err := sc.DB.Query(query)
+	if err != nil {
+		close(chnl)
+		return err
+	}
+	defer rows.Close()
+
+	for rows.Next() {
+		var content string
+		err = rows.Scan(&content)
+		if err != nil {
+			close(chnl)
+			return err
+		}
+		chnl <- content
+	}
+
+	err = rows.Err()
+	if err != nil {
+		close(chnl)
+		return err
+	} else {
+		close(chnl)
+		return nil
+	}
+}
